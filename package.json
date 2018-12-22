@@ -1,0 +1,24 @@
+{
+  "name": "scum-zone",
+  "version": "1.0.0",
+  "description": "Software for running a SCUM game server.",
+  "main": "latest-kill-log.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j3camero/scum-zone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/j3camero/scum-zone/issues"
+  },
+  "homepage": "https://github.com/j3camero/scum-zone#readme",
+  "dependencies": {
+    "browser": "^0.2.6",
+    "htmlparser2": "^3.10.0",
+    "moment": "^2.23.0"
+  }
+}
