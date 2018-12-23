@@ -34,4 +34,25 @@ function putKill(timestampAsMoment,
     });
 }
 
+function getMaxKillTimestamp(callback) {
+    var params = {
+	ProjectionExpression: 'unixTime',
+	TableName: 'scum-kills',
+    };
+    db.scan(params, (err, data) => {
+	if (err) {
+	    throw err;
+	} else {
+	    let maxTime = 0;
+	    data.Items.forEach((element, index, array) => {
+		if (element.unixTime.N > maxTime) {
+		    maxTime = element.unixTime.N;
+		}
+	    });
+	    callback(maxTime);
+	}
+    });
+}
+
 exports.putKill = putKill;
+exports.getMaxKillTimestamp = getMaxKillTimestamp;
