@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/j3camero/scum-zone#readme",
   "dependencies": {
+    "aws-sdk": "^2.382.0",
     "browser": "^0.2.6",
     "htmlparser2": "^3.10.0",
     "moment": "^2.23.0"
