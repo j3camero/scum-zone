@@ -3,24 +3,30 @@ const AWS = require('aws-sdk');
 AWS.config.update({region: 'us-west-2'});
 const db = new AWS.DynamoDB({apiVersion: '2012-10-08'});
 
-function putKill(timestampAsMoment,
-		 killerName, killerId,
-		 victimName, victimId, verbose) {
-    const formattedTime = timestampAsMoment.format('YYYY-MM-DD HH:mm:ss');
-    const unixTime = timestampAsMoment.unix();
+function putKill(data, verbose) {
     const killId = `K${killerId}V${victimId}T${unixTime}`;
     const params = {
 	TableName: 'scum-kills',
 	Item: {
 	    killId: {S: killId},
-	    unixTime: {N: unixTime.toString()},
-	    formattedTime: {S: formattedTime},
-	    killerName: {S: killerName},
-	    killerId: {S: killerId.toString()},
-	    victimName: {S: victimName.toString()},
-	    victimId: {S: victimId.toString()},
+	    unixTime: {N: data.unixTime.toString()},
+	    formattedTime: {S: data.formattedTime},
+	    killerName: {S: data.killerName},
+	    killerId: {S: data.killerId.toString()},
+	    victimName: {S: data.victimName.toString()},
+	    victimId: {S: data.victimId.toString()},
 	}
     };
+    if (data.killerX && data.killerY && data.killerZ) {
+	params.Item.killerX = {N: data.killerX.toString()};
+	params.Item.killerY = {N: data.killerY.toString()};
+	params.Item.killerZ = {N: data.killerZ.toString()};
+    }
+    if (data.victimX && data.victimY && data.victimZ) {
+	params.Item.victimX = {N: data.victimX.toString()};
+	params.Item.victimY = {N: data.victimY.toString()};
+	params.Item.victimZ = {N: data.victimZ.toString()};
+    }
     if (verbose) console.log('About to write a new kill to the database.');
     db.putItem(params, (err, data) => {
 	if (err) {

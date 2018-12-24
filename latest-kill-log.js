@@ -20,8 +20,41 @@ function getCsrfToken(html) {
     return csrfToken;
 }
 
-// The callback gets called once per kill in the kill log.
-function downloadLatestKillLog(verbose, callback) {
+// line: one line of a kill.log file.
+// callback: this function is called if the line is successfully parsed.
+function parseOneLogLine(line, callback) {
+    const data = {};
+    const dateMatch = line.match(/(\d\d\d\d.\d\d.\d\d-\d\d.\d\d.\d\d): /);
+    if (!dateMatch) {
+	return;
+    }
+    const t = moment(dateMatch[1], 'YYYY.MM.DD-HH.mm.ss');
+    data.unixTime = t.unix();
+    data.formattedTime = t.format('YYYY-MM-DD HH:mm:ss');
+    const killMatch = line.match(
+	    /Died: (.*) \((\d*)\), Killer: (.*) \((\d*)\)/);
+    if (!killMatch) {
+	return;
+    }
+    data.victimName = killMatch[1];
+    data.victimId = killMatch[2];
+    data.killerName = killMatch[3];
+    data.killerId = killMatch[4];
+    const coordinateMatch = line.match(/S\[KillerLoc: (.*), (.*), (.*), VictimLoc: (.*), (.*), (.*)\] C\[KillerLoc: (.*), (.*), (.*), VictimLoc: (.*), (.*), (.*)\]/);
+    if (coordinateMatch) {
+	data.killerX = coordinateMatch[1];
+	data.killerY = coordinateMatch[2];
+	data.killerZ = coordinateMatch[3];
+	data.victimX = coordinateMatch[4];
+	data.victimY = coordinateMatch[5];
+	data.victimZ = coordinateMatch[6];
+    }
+    callback(data);
+}
+
+// killCallback: gets called once per kill in the kill log.
+// doneCallback: gets called at the end.
+function downloadLatestKillLog(verbose, killCallback, doneCallback) {
     var b = new browser();
     var loginUrl = ('https://id.g-portal.com/login?redirect=' +
 		    'https%3A%2F%2Fwww.g-portal.us%2Fen%2F');
@@ -121,17 +154,9 @@ function downloadLatestKillLog(verbose, callback) {
 		    if (verbose) console.log(text);
 		    const lines = text.split(/\r?\n/);
 		    console.log('lines:', lines.length);
-		    let numMatchingLines = 0;
 		    lines.forEach((line) => {
-			const match = line.match(/(\d\d\d\d.\d\d.\d\d-\d\d.\d\d.\d\d): Died: (.*) \((\d*)\), Killer: (.*) \((\d*)\) Weapon:/);
-			if (match) {
-			    const t = moment(match[1], 'YYYY.MM.DD-HH.mm.ss');
-			    callback(t, match[4], match[5],
-				     match[2], match[3]);
-			    ++numMatchingLines;
-			}
+			parseOneLogLine(line, killCallback);
 		    });
-		    console.log('Number of matching lines:', numMatchingLines);
 		    console.log('Done parsing kill log.');
 		}
 	    },
@@ -143,6 +168,7 @@ function downloadLatestKillLog(verbose, callback) {
 	}, {decodeEntities: true});
 	parser.write(out.result);
 	parser.end();
+	doneCallback();
     });
     // Run the whole browser session.
     b.run();
