@@ -1,0 +1,5 @@
+# Emacs temp files.
+*~
+
+# NPM modules.
+node_modules/**
