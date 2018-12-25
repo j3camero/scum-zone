@@ -47,10 +47,10 @@ function update() {
 		console.log('Ranks calculated. Writing to file.');
 		fs.writeFile('ranks.json', json, 'utf8', () => {
 		    console.log('Wrote ranks to file.');
-		    const delay = 2 + poissonRandomNumber(3);
+		    const delay = 2 + poissonRandomNumber(61);
 		    console.log(`Scheduling next update for ${delay}m...`);
 		    console.log('Current time: ' + moment());
-		    setInterval(update, delay * 60 * 1000);
+		    setTimeout(update, delay * 60 * 1000);
 		});
 	    });
 	});
