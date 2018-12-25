@@ -1,3 +1,4 @@
+const fs = require('fs');
 const moment = require('moment');
 
 const db = require('./database');
@@ -27,7 +28,7 @@ function poissonRandomNumber(lambda) {
     return k - 1;
 }
 
-function updateKillDatabase() {
+function update() {
     console.log('Current time: ' + moment());
     console.log('Getting latest known timestamp from the database...');
     db.getMaxKillTimestamp((newMaxTime) => {
@@ -37,12 +38,23 @@ function updateKillDatabase() {
 	    throw 'There is a problem with the max timestamp in the database.';
 	}
 	scraper.downloadLatestKillLog(true, handleKill, () => {
-	    const delay = 2 + poissonRandomNumber(3);
-	    console.log(`Scheduling next DB update for ${delay}m...`);
-	    console.log('Current time: ' + moment());
-	    setInterval(updateKillDatabase, delay * 60 * 1000);
+	    console.log('Done updating DB. Calculating ranks.');
+	    db.calculateRankings(30 * 86400, (ranks) => {
+		const json = JSON.stringify({
+		    ranks,
+		    timestamp: moment().unix(),
+		});
+		console.log('Ranks calculated. Writing to file.');
+		fs.writeFile('ranks.json', json, 'utf8', () => {
+		    console.log('Wrote ranks to file.');
+		    const delay = 2 + poissonRandomNumber(3);
+		    console.log(`Scheduling next update for ${delay}m...`);
+		    console.log('Current time: ' + moment());
+		    setInterval(update, delay * 60 * 1000);
+		});
+	    });
 	});
     });
 }
 
-updateKillDatabase();
+update();

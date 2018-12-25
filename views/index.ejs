@@ -1,0 +1,8 @@
+<h2>ScumZone.com</h2>
+<h3>Leaderboard</h3>
+<ul>
+<% ranks.forEach(function(p) { %>
+  <li><%= p.name %> - <%= p.kills %> - <%= p.deaths %></li>
+    <% }); %>
+</ul>
+<p>Updated <%= updateTime %> <emph>(<%= updateDuration %>)</emph></p>

@@ -19,6 +19,8 @@
   "dependencies": {
     "aws-sdk": "^2.382.0",
     "browser": "^0.2.6",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
     "htmlparser2": "^3.10.0",
     "moment": "^2.23.0"
   }
