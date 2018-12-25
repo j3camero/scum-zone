@@ -58,11 +58,39 @@ function getMaxKillTimestamp(callback) {
     });
 }
 
+function addNonViolentPlayers(violentPlayers, callback) {
+    console.log('Adding non-violent players.');
+    const params = {
+	TableName: 'scum-users',
+    };
+    db.scan(params, (err, data) => {
+	if (err) {
+	    throw err;
+	} else {
+	    const nonviolent = {};
+	    data.Items.forEach((user) => {
+		nonviolent[user.steamId.S] = user.name.S;
+	    });
+	    violentPlayers.forEach((player) => {
+		delete nonviolent[player.id];
+	    });
+	    Object.keys(nonviolent).forEach((id) => {
+		violentPlayers.push({
+		    deaths: 0,
+		    id,
+		    kills: 0,
+		    maxTimestamp: 0,
+		    name: nonviolent[id],
+		});
+	    });
+	    callback();
+	}
+    });
+}
+
 function calculateRankings(lookbackSeconds, callback) {
     const cutoffTime = moment().subtract(lookbackSeconds, 'seconds').unix();
     const params = {
-	ProjectionExpression: ('unixTime, killerId, killerName, ' +
-			       'victimId, victimName'),
 	TableName: 'scum-kills',
     };
     db.scan(params, (err, data) => {
@@ -108,10 +136,12 @@ function calculateRankings(lookbackSeconds, callback) {
 		if (a.maxTimestamp > b.maxTimestamp) return -1;
 		return 0;
 	    });
-	    sortedPlayers.forEach((player, index) => {
-		player.rank = index + 1;
+	    addNonViolentPlayers(sortedPlayers, () => {
+		sortedPlayers.forEach((player, index) => {
+		    player.rank = index + 1;
+		});
+		callback(sortedPlayers);
 	    });
-	    callback(sortedPlayers);
 	}
     });
 }

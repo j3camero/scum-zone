@@ -28,6 +28,21 @@ function poissonRandomNumber(lambda) {
     return k - 1;
 }
 
+function writeRankDataToFile(ranks) {
+    console.log('Writing ranks to file.');
+    const json = JSON.stringify({
+	ranks,
+	timestamp: moment().unix(),
+    });
+    fs.writeFile('ranks.json', json, 'utf8', () => {
+	console.log('Wrote ranks to file.');
+	const delay = 2 + poissonRandomNumber(61);
+	console.log(`Scheduling next update for ${delay}m...`);
+	console.log('Current time: ' + moment());
+	setTimeout(update, delay * 60 * 1000);
+    });
+}
+
 function update() {
     console.log('Current time: ' + moment());
     console.log('Getting latest known timestamp from the database...');
@@ -39,20 +54,11 @@ function update() {
 	}
 	scraper.downloadLatestKillLog(true, handleKill, () => {
 	    console.log('Done updating DB. Calculating ranks.');
-	    db.calculateRankings(30 * 86400, (ranks) => {
-		const json = JSON.stringify({
-		    ranks,
-		    timestamp: moment().unix(),
-		});
-		console.log('Ranks calculated. Writing to file.');
-		fs.writeFile('ranks.json', json, 'utf8', () => {
-		    console.log('Wrote ranks to file.');
-		    const delay = 2 + poissonRandomNumber(61);
-		    console.log(`Scheduling next update for ${delay}m...`);
-		    console.log('Current time: ' + moment());
-		    setTimeout(update, delay * 60 * 1000);
-		});
-	    });
+	    // Wait a bit before querying the database because some writes may
+	    // still be finishing.
+	    setTimeout(() => {
+		db.calculateRankings(30 * 86400, writeRankDataToFile);
+	    }, 2000);
 	});
     });
 }
