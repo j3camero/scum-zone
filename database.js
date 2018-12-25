@@ -5,7 +5,7 @@ AWS.config.update({region: 'us-west-2'});
 const db = new AWS.DynamoDB({apiVersion: '2012-10-08'});
 
 function putKill(data, verbose) {
-    const killId = `K${killerId}V${victimId}T${unixTime}`;
+    const killId = `K${data.killerId}V${data.victimId}T${data.unixTime}`;
     const params = {
 	TableName: 'scum-kills',
 	Item: {
