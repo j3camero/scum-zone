@@ -1,10 +1,37 @@
-<h2>ScumZone.com</h2>
-<p>Check back soon for a better website. Launched Dec 24, 2018. Updates
-  every hour automatically.</p>
-<h3>Leaderboard</h3>
-<ul>
-<% ranks.forEach(function(p) { %>
-  <li><%= p.name %> - <%= p.kills %> - <%= p.deaths %></li>
-    <% }); %>
-</ul>
-<p>Updated <%= updateTime %> <emph>(<%= updateDuration %>)</emph></p>
+<html>
+  <head>
+    <title>ScumZone.com - Online Leaderboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+</head>
+  <body>
+    <h1><span class="orange">Scum</span>Zone.com</h1>
+    <p>We are a SCUM gaming community. Join our
+      <a href="https://discord.gg/HcyyEhD">Discord here</a>.</p>
+    <table>
+      <tr>
+        <th class="center-text">Rank</th>
+	<th class="center-text">Name</th>
+	<th class="center-text">Skill</th>
+	<th class="center-text">Kills</th>
+	<th class="center-text">Deaths</th>
+      </tr>
+      <% ranks.forEach(function(p) { %>
+        <tr>
+	  <td class="center-text"><%= p.rank %></td>
+	  <td class="center-text"><%= p.name %></td>
+	  <td class="center-text orange">--</td>
+	  <td class="center-text"><%= p.kills %></td>
+	  <td class="center-text"><%= p.deaths %></td>
+	</tr>
+      <% }); %>
+    </table>
+    <p class="whisper">Updated <%= updateTime %>.
+      <em>(<%= updateDuration %>)</em></p>
+    <p><strong>Coming soon: skill-based rankings!</strong></p>
+    <p>Powered by the
+      <a href="https://www.remi-coulom.fr/Bayesian-Elo/">same software</a>
+      used to rank chess tournaments. You get more points for killing higher
+      ranked players.</p>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+body {
+    background-color: #D6D6D6;
+    color: #424254;
+    font-family: Assistant, sans-serif;
+    text-align: center;
+}
+h1 {
+    font-family: Anton, sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+.center-text {
+    text-align: center;
+}
+.orange {
+    color: #d16014;
+}
+.whisper {
+    font-weight: 200;
+    font-size: smaller;
+}

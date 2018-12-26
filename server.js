@@ -6,6 +6,8 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
+app.use(express.static('public'));
+
 app.get('/', (req, res) => {
     console.log('index');
     const json = fs.readFileSync('ranks.json');
@@ -18,6 +20,6 @@ app.get('/', (req, res) => {
     });
 });
 
-port = 8080
+port = 80
 app.listen(port);
 console.log(`Serving on port ${port}`);
