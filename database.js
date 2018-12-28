@@ -1,6 +1,8 @@
 const AWS = require('aws-sdk');
 const moment = require('moment');
 
+const bayeselo = require('./bayeselo/bayeselo');
+
 AWS.config.update({region: 'us-west-2'});
 const db = new AWS.DynamoDB({apiVersion: '2012-10-08'});
 
@@ -77,6 +79,7 @@ function addNonViolentPlayers(violentPlayers, callback) {
 	    Object.keys(nonviolent).forEach((id) => {
 		violentPlayers.push({
 		    deaths: 0,
+		    elo: 0,
 		    id,
 		    kills: 0,
 		    maxTimestamp: 0,
@@ -85,6 +88,26 @@ function addNonViolentPlayers(violentPlayers, callback) {
 	    });
 	    callback();
 	}
+    });
+}
+
+function sortPlayersByElo(players, callback) {
+    const sortedPlayers = Object.values(playersById).sort((a, b) => {
+	if (a.elo < b.elo) return 1;
+	if (a.elo > b.elo) return -1;
+	if (a.kills < b.kills) return 1;
+	if (a.kills > b.kills) return -1;
+	if (a.deaths < b.deaths) return 1;
+	if (a.deaths > b.deaths) return -1;
+	if (a.maxTimestamp < b.maxTimestamp) return 1;
+	if (a.maxTimestamp > b.maxTimestamp) return -1;
+	return 0;
+    });
+    addNonViolentPlayers(sortedPlayers, () => {
+	sortedPlayers.forEach((player, index) => {
+	    player.rank = index + 1;
+	});
+	callback(sortedPlayers);
     });
 }
 
@@ -98,6 +121,7 @@ function calculateRankings(lookbackSeconds, callback) {
 	    throw err;
 	} else {
 	    const playersById = {};
+	    const killPairs = [];
 	    data.Items.forEach((kill) => {
 		if (kill.unixTime.N < cutoffTime) {
 		    return;
@@ -126,22 +150,18 @@ function calculateRankings(lookbackSeconds, callback) {
 		    victim.maxTimestamp = kill.unixTime.N;
 		}
 		playersById[victim.id] = victim;
+		killPairs.push([killer.id, victim.id]);
 	    });
-	    const sortedPlayers = Object.values(playersById).sort((a, b) => {
-		if (a.kills < b.kills) return 1;
-		if (a.kills > b.kills) return -1;
-		if (a.deaths < b.deaths) return 1;
-		if (a.deaths > b.deaths) return -1;
-		if (a.maxTimestamp < b.maxTimestamp) return 1;
-		if (a.maxTimestamp > b.maxTimestamp) return -1;
-		return 0;
-	    });
-	    addNonViolentPlayers(sortedPlayers, () => {
-		sortedPlayers.forEach((player, index) => {
-		    player.rank = index + 1;
+	    bayeselo.calculateEloScores(
+		killPairs,
+		(eloScores) => {
+		    Object.keys(eloScores).forEach((id) => {
+			playersById[id].elo = eloScores[id];
+		    });
+		    sortPlayersByElo(playersById, callback);
+		}, (error) => {
+		    throw error;
 		});
-		callback(sortedPlayers);
-	    });
 	}
     });
 }
