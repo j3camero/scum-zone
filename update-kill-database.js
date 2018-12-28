@@ -17,6 +17,12 @@ function handleKill(data) {
     }
 }
 
+function handleLogin(data) {
+    // No timestamp comparison for logins. This means we will have redundant
+    // database updates but it's not a huge deal.
+    db.updateScumUser(data.steamId, data.name);
+}
+
 // Don't put massive inputs into this. For lambda > 100 or so, a normal
 // approximation will be more efficient.
 function poissonRandomNumber(lambda) {
@@ -54,7 +60,7 @@ function update() {
 	if (maxTime <= 0) {
 	    throw 'There is a problem with the max timestamp in the database.';
 	}
-	scraper.downloadLatestKillLog(true, handleKill, () => {
+	scraper.downloadLatestKillLog(true, handleKill, handleLogin, () => {
 	    console.log('Done updating DB. Calculating ranks.');
 	    // Wait a bit before querying the database because some writes may
 	    // still be finishing.
