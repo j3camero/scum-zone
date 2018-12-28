@@ -1,6 +1,6 @@
 const express = require('express');
 const fs = require('fs');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
     res.render('index', {
 	ranks: ranks.ranks,
 	updateDuration: t.from(moment()),
-	updateTime: t.format('MMMM Do YYYY, HH:mm:ss'),
+	updateTime: t.tz('America/Los_Angeles').format('MMM Do h:mm A'),
     });
 });
 

@@ -22,6 +22,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "htmlparser2": "^3.10.0",
-    "moment": "^2.23.0"
+    "moment": "^2.23.0",
+    "moment-timezone": "^0.5.23"
   }
 }
