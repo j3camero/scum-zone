@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 const moment = require('moment');
 
-const bayeselo = require('./bayeselo/bayeselo');
+const bayeselo = require('./bayeselo-wrapper.js');
 
 AWS.config.update({region: 'us-west-2'});
 const db = new AWS.DynamoDB({apiVersion: '2012-10-08'});
@@ -92,7 +92,7 @@ function addNonViolentPlayers(violentPlayers, callback) {
 }
 
 function sortPlayersByElo(players, callback) {
-    const sortedPlayers = Object.values(playersById).sort((a, b) => {
+    const sortedPlayers = Object.values(players).sort((a, b) => {
 	if (a.elo < b.elo) return 1;
 	if (a.elo > b.elo) return -1;
 	if (a.kills < b.kills) return 1;
