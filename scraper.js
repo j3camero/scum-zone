@@ -63,7 +63,7 @@ function parseOneLoginLogLine(line, callback) {
     const t = moment(dateMatch[1], 'YYYY.MM.DD-HH.mm.ss');
     data.unixTime = t.unix();
     data.formattedTime = t.format('YYYY-MM-DD HH:mm:ss');
-    const loginMatch = line.match(/(\d*):(.*)\(\d*\) logged in/);
+    const loginMatch = line.match(/ (\d*):(.*)\(\d*\) logged in/);
     if (!loginMatch) {
 	return;
     }
