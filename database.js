@@ -166,6 +166,25 @@ function calculateRankings(lookbackSeconds, callback) {
     });
 }
 
+function updateScumUser(steamId, newName) {
+    const params = {
+	TableName: 'scum-users',
+	Item: {
+	    steamId: {S: steamId},
+	    name: {S: newName},
+	}
+    };
+    console.log(`Updating SCUM user with Steam ID ${steamId} (${newName}).`);
+    db.putItem(params, (err, data) => {
+	if (err) {
+	    throw err;
+	} else {
+	    console.log('Great success.');
+	}
+    });
+}
+
 exports.putKill = putKill;
 exports.getMaxKillTimestamp = getMaxKillTimestamp;
 exports.calculateRankings = calculateRankings;
+exports.updateScumUser = updateScumUser;

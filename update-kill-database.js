@@ -2,7 +2,7 @@ const fs = require('fs');
 const moment = require('moment');
 
 const db = require('./database');
-const scraper = require('./latest-kill-log');
+const scraper = require('./scraper');
 
 let maxTime;
 
@@ -12,6 +12,8 @@ function handleKill(data) {
 	console.log(data);
 	maxTime = data.unixTime;
 	db.putKill(data, true);
+	db.updateScumUser(data.killerId, data.killerName);
+	db.updateScumUser(data.victimId, data.victimName);
     }
 }
 
