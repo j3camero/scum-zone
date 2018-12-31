@@ -13,9 +13,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
   <body>
+    <div id="main-content">
     <h1><span class="orange">Scum</span>Zone.com</h1>
-    <p>We are a SCUM gaming community. Join our
-      <a href="https://discord.gg/HcyyEhD">Discord here</a>.</p>
+    <p>We are a SCUM gaming community.
+      <a href="https://discord.gg/HcyyEhD">Join our Discord</a>.</p>
+    <p>This is a survival PvP leaderboard. It updates automatically.</p>
+    <p class="whisper">Updated <%= updateTime %>.
+      <em>(<%= updateDuration %>)</em></p>
     <table>
       <tr>
         <th class="center-text">Rank</th>
@@ -34,12 +38,18 @@
 	</tr>
       <% }); %>
     </table>
-    <p class="whisper">Updated <%= updateTime %>.
-      <em>(<%= updateDuration %>)</em></p>
-    <p><strong>Coming soon: skill-based rankings!</strong></p>
-    <p>Powered by the
-      <a href="https://www.remi-coulom.fr/Bayesian-Elo/">same software</a>
-      used to rank chess tournaments. You get more points for killing higher
-      ranked players.</p>
+    <p><strong>Coming soon: PvP Zone!</strong></p>
+    <p>Looking for a fight? The server will pick a different town every day.
+      Kills inside the zone count on the leaderboard. You can still be killed
+      outside the PvP Zone but it doesn't count towards your monthly total.</p>
+    <p>This is a SCUM league. We keep the server size small so there is no
+      lag. Top ranked players are auto-whitelisted so you can join even when
+      the server is full. You will always know exactly where to find the
+      action, since the server will randomly choose a new bunker/town for us
+      to fight over every day.</p>
+    <p>Rankings are based on the ELO system, like a chess tournament. Kills
+      &amp; deaths are treated like wins &amp; losses. The scores reflect
+      actual skill, not a simple kill-count or fame points.</p>
+    </div>
   </body>
 </html>

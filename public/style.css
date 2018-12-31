@@ -1,7 +1,9 @@
 body {
-    background-color: #D6D6D6;
+    background-color: #424254;
     color: #424254;
     font-family: Assistant, sans-serif;
+    margin: 0;
+    padding: 0;
     text-align: center;
 }
 h1 {
@@ -11,12 +13,21 @@ h1 {
     letter-spacing: 0.5px;
     text-transform: uppercase;
 }
+html {
+    margin: 0;
+    padding: 0;
+}
 table {
     margin-left: auto;
     margin-right: auto;
 }
 .center-text {
     text-align: center;
+}
+#main-content {
+    background-color: #D6D6D6;
+    max-width: 1440px;
+    min-width: 640px;
 }
 .orange {
     color: #d16014;
