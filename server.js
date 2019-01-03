@@ -23,6 +23,19 @@ app.get('/', (req, res) => {
     const ranks = JSON.parse(json);
     const t = moment.unix(ranks.timestamp);
     res.render('index', {
+	pageName: 'index',
+	ranks: truncateLongNames(ranks.ranks).slice(0, 10),
+	updateDuration: t.from(moment()),
+	updateTime: t.tz('America/Los_Angeles').format('MMM Do h:mm A'),
+    });
+});
+
+app.get('/rankings', (req, res) => {
+    const json = fs.readFileSync('ranks.json');
+    const ranks = JSON.parse(json);
+    const t = moment.unix(ranks.timestamp);
+    res.render('rankings', {
+	pageName: 'rankings',
 	ranks: truncateLongNames(ranks.ranks),
 	updateDuration: t.from(moment()),
 	updateTime: t.tz('America/Los_Angeles').format('MMM Do h:mm A'),

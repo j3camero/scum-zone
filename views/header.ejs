@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131507661-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-131507661-1');
+    </script>
+    <title>ScumZone.com - Rankings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+</head>
+  <body>
+    <div id="main-content">
+      <div id="header">
+        <h1><span class="orange">Scum</span>Zone.com</h1>
+	<ul class="horizontal-menu">
+	  <li <% if (pageName === 'index') { %>class="orange"<% } %>>
+	    <a href="/">Home</a></li>
+	  <li <% if (pageName === 'rankings') { %>class="orange"<% } %>>
+	    <a href="/rankings">Rankings</a></li>
+	  <li <% if (pageName === 'map') { %>class="orange"<% } %>>
+	    <a href="/map">Map</a></li>
+	  <li <% if (pageName === 'join') { %>class="orange"<% } %>>
+	    <a href="/join">Join</a></li>
+	  <li <% if (pageName === 'about') { %>class="orange"<% } %>>
+	    <a href="/about">About</a></li>
+	</ul>
+      </div>
