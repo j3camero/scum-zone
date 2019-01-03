@@ -6,33 +6,65 @@ body {
     padding: 0;
     text-align: center;
 }
+.center-text {
+    text-align: center;
+}
 h1 {
     font-family: Anton, sans-serif;
-    font-size: 50px;
-    font-weight: bold;
-    letter-spacing: 0.5px;
+    letter-spacing: -2px;
+    margin: 0;
     text-transform: uppercase;
+}
+#header {
+    background-color: #1c0c02;
+    box-sizing: border-box;
+    color: #D6D6D6;
+    margin: 0;
+    padding: 12px;
+    width: 100%;
 }
 html {
     margin: 0;
     padding: 0;
 }
-table {
-    margin-left: auto;
-    margin-right: auto;
-}
-.center-text {
-    text-align: center;
-}
 #main-content {
     background-color: #D6D6D6;
-    max-width: 1440px;
-    min-width: 640px;
+    //height: 100%;
+    margin: 0 auto;
+    max-width: 600px;
+    min-width: 300px;
 }
 .orange {
     color: #d16014;
 }
+p {
+    margin-left: 12px;
+    margin-right: 12px;
+}
+table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+.horizontal-menu {
+    margin: 6px 0 0 0;
+    padding: 0;
+}
+ul.horizontal-menu li {
+    display: inline;
+    padding: 6px;
+}
+ul.horizontal-menu li a {
+    color: inherit;
+    text-decoration: none;
+}
+ul.horizontal-menu li:hover a {
+    color: #D16014;
+}
 .whisper {
     font-weight: 200;
     font-size: smaller;
+}
+.light-text {
+    color: #D6D6D6;
 }
