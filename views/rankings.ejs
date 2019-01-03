@@ -1,23 +1,5 @@
 <% include header.ejs %>
-<p>This is a survival PvP leaderboard. It updates automatically.</p>
-<p class="whisper">Updated <%= updateTime %>.
-  <em>(<%= updateDuration %>)</em></p>
-<table>
-  <tr>
-    <th class="center-text">Rank</th>
-    <th class="center-text">Name</th>
-    <th class="center-text">Skill</th>
-    <th class="center-text">Kills</th>
-    <th class="center-text">Deaths</th>
-  </tr>
-  <% ranks.forEach(function(p) { %>
-    <tr>
-      <td class="center-text"><%= p.rank %></td>
-      <td class="center-text"><%= p.name %></td>
-      <td class="center-text orange"><%= p.elo %></td>
-      <td class="center-text"><%= p.kills %></td>
-      <td class="center-text"><%= p.deaths %></td>
-    </tr>
-  <% }); %>
-</table>
+<% include rank-table.ejs %>
+<p>We rank using ELO score, like chess. It captures actual skill better than
+  raw kill-count or fame points. <a href="/about">More info »</a></p>
 <% include footer.ejs %>

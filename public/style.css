@@ -81,6 +81,13 @@ ul.horizontal-menu li a {
     color: inherit;
     text-decoration: none;
 }
+h2 a {
+    color: inherit;
+    text-decoration: none;
+}
 ul.horizontal-menu li:hover a {
     color: #D16014;
+}
+.whisper {
+    font-size: smaller;
 }

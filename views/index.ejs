@@ -1,37 +1,10 @@
 <% include header.ejs %>
-<p>We are a SCUM gaming community.
-  <a href="https://discord.gg/HcyyEhD">Join our Discord</a>.</p>
-<p>This is a survival PvP leaderboard. It updates automatically.</p>
-<table>
-  <tr>
-    <th class="center-text">Rank</th>
-      <th class="center-text">Name</th>
-      <th class="center-text">Skill</th>
-      <th class="center-text">Kills</th>
-      <th class="center-text">Deaths</th>
-  </tr>
-  <% ranks.forEach(function(p) { %>
-    <tr>
-      <td class="center-text"><%= p.rank %></td>
-      <td class="center-text"><%= p.name %></td>
-      <td class="center-text orange"><%= p.elo %></td>
-      <td class="center-text"><%= p.kills %></td>
-      <td class="center-text"><%= p.deaths %></td>
-    </tr>
-  <% }); %>
-</table>
-<p><strong><span class="orange">Coming soon:</span> PvP Zone!
-  </strong></p>
-<p>Looking for a fight? The server will pick a different town every day.
-  Kills inside the zone count on the leaderboard. You can still be
-  killed outside the PvP Zone but it doesn't count towards your monthly
-  total.</p>
-<p>This is a SCUM league. We keep the server size small so there is no
-  lag. Top ranked players are auto-whitelisted so you can join even when
-  the server is full. You will always know exactly where to find the
-  action, since the server will randomly choose a new bunker/town for us
-  to fight over every day.</p>
-<p>Rankings are based on the ELO system, like a chess tournament. Kills
-  &amp; deaths are treated like wins &amp; losses. The scores reflect
-  actual skill, not a simple kill-count or fame points.</p>
+<p>Looking for a fight? Go to</p>
+<h2 class="orange"><a href="/map"><%= pvpZone.name %></a></h2>
+<p>The PvP Zone moves every 24 hours.</p>
+<h2>Top Players</h2>
+<% include rank-table.ejs %>
+<p>1 - 10 of <%= numRankings %>. <a href="/rankings">See all »</a></p>
+<p>We rank using ELO score, like chess. It captures actual skill better than
+  raw kill-count or fame points. <a href="/about">More info »</a></p>
 <% include footer.ejs %>

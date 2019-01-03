@@ -20,11 +20,13 @@ function truncateLongNames(ranks) {
 
 app.get('/', (req, res) => {
     const json = fs.readFileSync('ranks.json');
-    const ranks = JSON.parse(json);
-    const t = moment.unix(ranks.timestamp);
+    const data = JSON.parse(json);
+    const t = moment.unix(data.timestamp);
     res.render('index', {
+	numRankings: data.ranks.length,
 	pageName: 'index',
-	ranks: truncateLongNames(ranks.ranks).slice(0, 10),
+	pvpZone: data.pvpZone,
+	ranks: truncateLongNames(data.ranks).slice(0, 10),
 	updateDuration: t.from(moment()),
 	updateTime: t.tz('America/Los_Angeles').format('MMM Do h:mm A'),
     });
@@ -32,11 +34,12 @@ app.get('/', (req, res) => {
 
 app.get('/rankings', (req, res) => {
     const json = fs.readFileSync('ranks.json');
-    const ranks = JSON.parse(json);
-    const t = moment.unix(ranks.timestamp);
+    const data = JSON.parse(json);
+    const t = moment.unix(data.timestamp);
     res.render('rankings', {
+	numRankings: data.ranks.length,
 	pageName: 'rankings',
-	ranks: truncateLongNames(ranks.ranks),
+	ranks: truncateLongNames(data.ranks),
 	updateDuration: t.from(moment()),
 	updateTime: t.tz('America/Los_Angeles').format('MMM Do h:mm A'),
     });
@@ -48,6 +51,7 @@ app.get('/map', (req, res) => {
     const t = moment.unix(data.timestamp);
     res.render('map', {
 	pageName: 'map',
+	pvpZone: data.pvpZone,
 	updateDuration: t.from(moment()),
 	updateTime: t.tz('America/Los_Angeles').format('MMM Do h:mm A'),
     });

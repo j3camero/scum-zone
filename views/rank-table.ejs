@@ -1,0 +1,20 @@
+<p class="whisper">Updated <%= updateTime %>.
+  <em>(<%= updateDuration %>)</em></p>
+<table>
+  <tr>
+    <th class="center-text">Rank</th>
+      <th class="center-text">Name</th>
+      <th class="center-text">Skill (<a href="/about">ELO</a>)</th>
+      <th class="center-text">Kills</th>
+      <th class="center-text">Deaths</th>
+  </tr>
+  <% ranks.forEach(function(p) { %>
+    <tr>
+      <td class="center-text"><%= p.rank %></td>
+      <td class="center-text"><%= p.name %></td>
+      <td class="center-text orange"><%= p.elo %></td>
+      <td class="center-text"><%= p.kills %></td>
+      <td class="center-text"><%= p.deaths %></td>
+    </tr>
+  <% }); %>
+</table>
