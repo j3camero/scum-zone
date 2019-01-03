@@ -42,6 +42,39 @@ app.get('/rankings', (req, res) => {
     });
 });
 
+app.get('/map', (req, res) => {
+    const json = fs.readFileSync('ranks.json');
+    const data = JSON.parse(json);
+    const t = moment.unix(data.timestamp);
+    res.render('map', {
+	pageName: 'map',
+	updateDuration: t.from(moment()),
+	updateTime: t.tz('America/Los_Angeles').format('MMM Do h:mm A'),
+    });
+});
+
+app.get('/join', (req, res) => {
+    const json = fs.readFileSync('ranks.json');
+    const data = JSON.parse(json);
+    const t = moment.unix(data.timestamp);
+    res.render('join', {
+	pageName: 'join',
+	updateDuration: t.from(moment()),
+	updateTime: t.tz('America/Los_Angeles').format('MMM Do h:mm A'),
+    });
+});
+
+app.get('/about', (req, res) => {
+    const json = fs.readFileSync('ranks.json');
+    const data = JSON.parse(json);
+    const t = moment.unix(data.timestamp);
+    res.render('about', {
+	pageName: 'about',
+	updateDuration: t.from(moment()),
+	updateTime: t.tz('America/Los_Angeles').format('MMM Do h:mm A'),
+    });
+});
+
 port = 80
 app.listen(port);
 console.log(`Serving on port ${port}`);
