@@ -184,7 +184,69 @@ function updateScumUser(steamId, newName) {
     });
 }
 
+function getRecentScumEvents(windowInSeconds, callback) {
+    var params = {
+	TableName: 'scum-events',
+    };
+    db.scan(params, (err, data) => {
+	if (err) {
+	    throw err;
+	}
+	const currentTime = moment();
+	const places = [];
+	data.Items.forEach((event) => {
+	    const t = moment(event.date.S);
+	    if (currentTime.diff(t) < windowInSeconds * 1000) {
+		places.push(event.place.N);
+	    }
+	});
+	callback(places);
+    });
+}
+
+function getAllScumPlaces(callback) {
+    var params = {
+	TableName: 'scum-places',
+    };
+    db.scan(params, (err, data) => {
+	if (err) {
+	    throw err;
+	}
+	const places = [];
+	data.Items.forEach((place) => {
+	    places.push({
+		id: place.id.N,
+		name: place.name.S,
+		url: place.url.S,
+		x: place.x.N,
+		y: place.y.N,
+	    });
+	});
+	callback(places);
+    });
+}
+
+function createScumEvent(placeId, callback) {
+    const params = {
+	TableName: 'scum-events',
+	Item: {
+	    date: {S: moment().format()},
+	    place: {N: placeId},
+	}
+    };
+    db.putItem(params, (err, data) => {
+	if (err) {
+	    throw err;
+	} else {
+	    callback();
+	}
+    });
+}
+
 exports.putKill = putKill;
 exports.getMaxKillTimestamp = getMaxKillTimestamp;
 exports.calculateRankings = calculateRankings;
 exports.updateScumUser = updateScumUser;
+exports.getRecentScumEvents = getRecentScumEvents;
+exports.getAllScumPlaces = getAllScumPlaces;
+exports.createScumEvent = createScumEvent;

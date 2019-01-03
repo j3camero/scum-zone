@@ -5,6 +5,7 @@ const db = require('./database');
 const scraper = require('./scraper');
 
 let maxTime;
+let currentPvpZone;
 
 function handleKill(data) {
     if (data.unixTime > maxTime) {
@@ -39,6 +40,7 @@ function poissonRandomNumber(lambda) {
 function writeRankDataToFile(ranks) {
     console.log('Writing ranks to file.');
     const json = JSON.stringify({
+	pvpZone: currentPvpZone,
 	ranks,
 	timestamp: moment().unix(),
     });
@@ -51,7 +53,44 @@ function writeRankDataToFile(ranks) {
     });
 }
 
-function update() {
+function updateScumEvent(callback) {
+    console.log('Checking for a running event.');
+    db.getAllScumPlaces((places) => {
+	db.getRecentScumEvents(24 * 3600, (todayEvents) => {
+	    if (todayEvents.length > 0) {
+		console.log('Event found. Getting event details.');
+		const placeId = todayEvents[0];
+		places.forEach((place) => {
+		    if (place.id === placeId) {
+			console.log('Event:', place);
+			currentPvpZone = place;
+			callback();
+		    }
+		});
+	    } else {
+		console.log('No event found. Creating new event.');
+		db.getRecentScumEvents(30 * 24 * 3600, (monthEvents) => {
+		    const eligibleLocations = [];
+		    places.forEach((place) => {
+			if (monthEvents.indexOf(place.id) < 0) {
+			    eligibleLocations.push(place);
+			}
+		    });
+		    const randomIndex = Math.floor(Math.random() *
+						   eligibleLocations.length);
+		    const randomPlace = eligibleLocations[randomIndex];
+		    db.createScumEvent(randomPlace.id, () => {
+			console.log('Event:', randomPlace);
+			currentPvpZone = randomPlace;
+			callback();
+		    });
+		});
+	    }
+	});
+    });
+}
+
+function updateKills() {
     console.log('Current time: ' + moment());
     console.log('Getting latest known timestamp from the database...');
     db.getMaxKillTimestamp((newMaxTime) => {
@@ -68,6 +107,12 @@ function update() {
 		db.calculateRankings(30 * 86400, writeRankDataToFile);
 	    }, 2000);
 	});
+    });
+}
+
+function update() {
+    updateScumEvent(() => {
+	updateKills();
     });
 }
 
