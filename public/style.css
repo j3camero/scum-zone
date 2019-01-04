@@ -41,6 +41,10 @@ h1 {
     margin: 0;
     text-transform: uppercase;
 }
+h1 a {
+    color: inherit;
+    text-decoration: none;
+}
 #header {
     //background-color: #1C0C02;
     background-image: linear-gradient(#2f2017, #1C0C02);
@@ -70,8 +74,7 @@ p.ip-address {
     color: #d16014;
 }
 p {
-    margin-left: 12px;
-    margin-right: 12px;
+    margin: 12px;
 }
 table {
     margin-left: auto;
@@ -89,6 +92,9 @@ ul.horizontal-menu li {
 ul.horizontal-menu li a {
     color: inherit;
     text-decoration: none;
+}
+h2 {
+    margin: 12px;
 }
 h2 a {
     color: inherit;
