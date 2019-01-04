@@ -10,6 +10,9 @@ body {
 .center-text {
     text-align: center;
 }
+#discord {
+    max-width: 280px;
+}
 #footer {
     background-image: linear-gradient(#1C0C02, #2f2017);
     bottom: 0;
@@ -48,6 +51,9 @@ html {
     height: 100%;
     margin: 0;
     padding: 0;
+}
+p.ip-address {
+    font-family: "Lucida Console", Monaco, monospace;
 }
 #main-content {
     background-color: #D6D6D6;
