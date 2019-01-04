@@ -1,9 +1,9 @@
 <% include header.ejs %>
 <p>Looking for a fight? Go to</p>
 <h2 class="orange"><%= pvpZone.name %></h2>
-<p>Map coming soon. Use
-  <a href="https://maps.devzupa.be/en/scum/86/scumisland/#3/">this map</a>
-  for now.</p>
+<canvas id="bigmap" class="map"></canvas>
 <p>The PvP Zone moves every 24 hours.
   <a href="/about">More info about PvP Zone »</a></p>
+<canvas id="smallmap" class="map"></canvas>
+<script src="map.js"></script>
 <% include footer.ejs %>

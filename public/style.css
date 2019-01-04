@@ -1,3 +1,6 @@
+canvas.map {
+    width: 100%;
+}
 body {
     background-color: #424254;
     color: #424254;

@@ -18,9 +18,14 @@ function truncateLongNames(ranks) {
     return ranks;
 }
 
+function loadUpdateData() {
+    const fileContents = fs.readFileSync('public/update.json');
+    const json = JSON.parse(fileContents);
+    return json;
+}
+
 app.get('/', (req, res) => {
-    const json = fs.readFileSync('ranks.json');
-    const data = JSON.parse(json);
+    const data = loadUpdateData();
     const t = moment.unix(data.timestamp);
     res.render('index', {
 	numRankings: data.ranks.length,
@@ -33,8 +38,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/rankings', (req, res) => {
-    const json = fs.readFileSync('ranks.json');
-    const data = JSON.parse(json);
+    const data = loadUpdateData();
     const t = moment.unix(data.timestamp);
     res.render('rankings', {
 	numRankings: data.ranks.length,
@@ -46,8 +50,7 @@ app.get('/rankings', (req, res) => {
 });
 
 app.get('/map', (req, res) => {
-    const json = fs.readFileSync('ranks.json');
-    const data = JSON.parse(json);
+    const data = loadUpdateData();
     const t = moment.unix(data.timestamp);
     res.render('map', {
 	pageName: 'map',
@@ -58,8 +61,7 @@ app.get('/map', (req, res) => {
 });
 
 app.get('/join', (req, res) => {
-    const json = fs.readFileSync('ranks.json');
-    const data = JSON.parse(json);
+    const data = loadUpdateData();
     const t = moment.unix(data.timestamp);
     res.render('join', {
 	pageName: 'join',
@@ -69,8 +71,7 @@ app.get('/join', (req, res) => {
 });
 
 app.get('/about', (req, res) => {
-    const json = fs.readFileSync('ranks.json');
-    const data = JSON.parse(json);
+    const data = loadUpdateData();
     const t = moment.unix(data.timestamp);
     res.render('about', {
 	pageName: 'about',

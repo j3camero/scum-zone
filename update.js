@@ -44,7 +44,7 @@ function writeRankDataToFile(ranks) {
 	ranks,
 	timestamp: moment().unix(),
     });
-    fs.writeFile('ranks.json', json, 'utf8', () => {
+    fs.writeFile('public/update.json', json, 'utf8', () => {
 	console.log('Wrote ranks to file.');
 	const delay = 2 + poissonRandomNumber(61);
 	console.log(`Scheduling next update for ${delay}m...`);
