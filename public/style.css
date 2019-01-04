@@ -1,4 +1,7 @@
 canvas.map {
+    //width: 100%;
+}
+#bigmap {
     width: 100%;
 }
 body {
@@ -54,6 +57,9 @@ h1 a {
     padding: 12px;
     width: 100%;
 }
+#homemap {
+    width: 62%;
+}
 html {
     height: 100%;
     margin: 0;
@@ -75,6 +81,9 @@ p.ip-address {
 }
 p {
     margin: 12px;
+}
+#smallmap {
+    width: 100%;
 }
 table {
     margin-left: auto;

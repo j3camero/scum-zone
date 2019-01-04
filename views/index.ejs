@@ -1,9 +1,11 @@
 <% include header.ejs %>
 <p>Looking for a fight? Go to
-  <strong class="orange"><%= pvpZone.name %></strong>.</p>
-<p>The PvP Zone moves every 24 hours.</p>
+  <strong class="orange"><%= pvpZone.name %></strong>
+  (<a href="/map">map</a>).</p>
+<a href="/map"><canvas id="homemap" class="map"></canvas></a>
 <h2>Top Players</h2>
 <% include rank-table.ejs %>
 <p>1 - 10 of <%= numRankings %>. <a href="/rankings">See all »</a></p>
 <p>We rank using ELO score, like chess. <a href="/about">More info »</a></p>
+<script src="map.js"></script>
 <% include footer.ejs %>
