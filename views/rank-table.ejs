@@ -1,15 +1,15 @@
 <p class="whisper">Updated <%= updateTime %>.
   <em>(<%= updateDuration %>)</em></p>
 <table>
-  <tr>
+  <tr class="header-row">
     <th class="center-text">Rank</th>
       <th class="center-text">Name</th>
       <th class="center-text">Skill (<a href="/about">ELO</a>)</th>
       <th class="center-text">Kills</th>
       <th class="center-text">Deaths</th>
   </tr>
-  <% ranks.forEach(function(p) { %>
-    <tr>
+  <% ranks.forEach((p, i) => { %>
+    <tr <% if (i % 2) { %> class="odd-row" <% } %> >
       <td class="center-text"><%= p.rank %></td>
       <td class="center-text"><%= p.name %></td>
       <td class="center-text orange"><%= p.elo %></td>
