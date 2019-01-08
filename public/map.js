@@ -58,17 +58,20 @@ function drawZoomedMapWithCircleZone(canvas, zoneX, zoneY, zoneRadius,
 }
 
 function main() {
+    const x = -4070;
+    const y = -40;
+    const radius = 500;
     const bigMap = document.getElementById('bigmap');
     if (bigMap) {
-	drawMapWithCircleZone(bigMap, -400, -4900, 500);
+	drawMapWithCircleZone(bigMap, x, y, radius);
     }
     const smallMap = document.getElementById('smallmap');
     if (smallMap) {
-	drawZoomedMapWithCircleZone(smallMap, -400, -4900, 500, 2000, 1, 5);
+	drawZoomedMapWithCircleZone(smallMap, x, y, radius, 2000, 1, 5);
     }
     const homeMap = document.getElementById('homemap');
     if (homeMap) {
-	drawZoomedMapWithCircleZone(homeMap, -400, -4900, 500, 9000, 0.618, 2);
+	drawZoomedMapWithCircleZone(homeMap, x, y, radius, 9000, 0.618, 2);
     }
 }
 
