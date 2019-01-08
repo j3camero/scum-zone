@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
     const t = moment.unix(data.timestamp);
     res.render('index', {
 	numRankings: data.ranks.length,
-	pageName: 'index',
+	pageName: 'Home',
 	pvpZone: data.pvpZone,
 	ranks: truncateLongNames(data.ranks).slice(0, 10),
 	updateDuration: t.from(moment()),
@@ -42,7 +42,7 @@ app.get('/rankings', (req, res) => {
     const t = moment.unix(data.timestamp);
     res.render('rankings', {
 	numRankings: data.ranks.length,
-	pageName: 'rankings',
+	pageName: 'Rankings',
 	ranks: truncateLongNames(data.ranks),
 	updateDuration: t.from(moment()),
 	updateTime: t.tz('America/Los_Angeles').format('MMM Do h:mm A'),
@@ -53,7 +53,7 @@ app.get('/map', (req, res) => {
     const data = loadUpdateData();
     const t = moment.unix(data.timestamp);
     res.render('map', {
-	pageName: 'map',
+	pageName: 'Map',
 	pvpZone: data.pvpZone,
 	updateDuration: t.from(moment()),
 	updateTime: t.tz('America/Los_Angeles').format('MMM Do h:mm A'),
@@ -64,7 +64,7 @@ app.get('/join', (req, res) => {
     const data = loadUpdateData();
     const t = moment.unix(data.timestamp);
     res.render('join', {
-	pageName: 'join',
+	pageName: 'Join',
 	updateDuration: t.from(moment()),
 	updateTime: t.tz('America/Los_Angeles').format('MMM Do h:mm A'),
     });
@@ -74,7 +74,7 @@ app.get('/about', (req, res) => {
     const data = loadUpdateData();
     const t = moment.unix(data.timestamp);
     res.render('about', {
-	pageName: 'about',
+	pageName: 'About',
 	updateDuration: t.from(moment()),
 	updateTime: t.tz('America/Los_Angeles').format('MMM Do h:mm A'),
     });

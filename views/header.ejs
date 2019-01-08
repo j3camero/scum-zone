@@ -8,7 +8,7 @@
       gtag('js', new Date());
       gtag('config', 'UA-131507661-1');
     </script>
-    <title>ScumZone.com - Rankings</title>
+    <title>ScumZone.com - <%= pageName %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,15 +17,15 @@
       <div id="header">
         <h1><a href="/"><span class="orange">Scum</span>Zone.com</a></h1>
 	<ul class="horizontal-menu">
-	  <li <% if (pageName === 'index') { %>class="orange"<% } %>>
+	  <li <% if (pageName === 'Home') { %>class="orange"<% } %>>
 	    <a href="/">Home</a></li>
-	  <li <% if (pageName === 'rankings') { %>class="orange"<% } %>>
+	  <li <% if (pageName === 'Rankings') { %>class="orange"<% } %>>
 	    <a href="/rankings">Rankings</a></li>
-	  <li <% if (pageName === 'map') { %>class="orange"<% } %>>
+	  <li <% if (pageName === 'Map') { %>class="orange"<% } %>>
 	    <a href="/map">Map</a></li>
-	  <li <% if (pageName === 'join') { %>class="orange"<% } %>>
+	  <li <% if (pageName === 'Join') { %>class="orange"<% } %>>
 	    <a href="/join">Join</a></li>
-	  <li <% if (pageName === 'about') { %>class="orange"<% } %>>
+	  <li <% if (pageName === 'About') { %>class="orange"<% } %>>
 	    <a href="/about">About</a></li>
 	</ul>
       </div>

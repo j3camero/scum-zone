@@ -58,9 +58,10 @@ function drawZoomedMapWithCircleZone(canvas, zoneX, zoneY, zoneRadius,
 }
 
 function main() {
-    const x = -4070;
-    const y = -40;
-    const radius = 500;
+    const data = globalPvpZoneData;
+    const x = data.x;
+    const y = data.y;
+    const radius = data.radius;
     const bigMap = document.getElementById('bigmap');
     if (bigMap) {
 	drawMapWithCircleZone(bigMap, x, y, radius);

@@ -220,6 +220,7 @@ function getAllScumPlaces(callback) {
 		url: place.url.S,
 		x: place.x.N,
 		y: place.y.N,
+		radius: place.radius.N,
 	    });
 	});
 	callback(places);
