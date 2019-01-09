@@ -2,6 +2,8 @@ const browser = require('browser');
 const htmlparser = require('htmlparser2');
 const moment = require('moment');
 
+const config = require('./config');
+
 function getCsrfToken(html) {
     const csrfBegin = '<input type="hidden" name="_csrfToken" autocomplete="off" value="';
     let csrfIndex = html.indexOf(csrfBegin);
@@ -95,8 +97,8 @@ function downloadLatestKillLog(verbose, killCallback,
 	    data  : {
 		_method: 'POST',
 		_csrfToken: csrfToken,
-		email  : '***REMOVED***',
-		password : '***REMOVED***',
+		email  : config.gPortalUsername,
+		password : config.gPortalPassword,
 	    },
 	    method: 'POST',
 	}];
