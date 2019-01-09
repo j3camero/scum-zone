@@ -1,3 +1,9 @@
+## Live Demo
+
+An example of what is possible: [ScumZone.com](http://ScumZone.com/)
+
+Feel free to use or adapt the tools to your own SCUM server's needs!
+
 ## SCUM Game Server Admin Tools
 
 This package provides access to your SCUM game server logs. Yes, really! This
@@ -17,9 +23,3 @@ To run a copy of the website locally, run
 ```
 sudo node server.js
 ```
-
-## Live Demo
-
-An example of what is possible: [ScumZone.com](http://ScumZone.com/)
-
-Feel free to use or adapt the tools to your own SCUM server's needs!
