@@ -6,4 +6,5 @@ module.exports = {
     // your password!
     gPortalUsername: 'Put your g-portal.us login name here',
     gPortalPassword: 'Put your g-portal.us password here',
+    gPortalServerId: 'Put your g-portal server id here',
 };
