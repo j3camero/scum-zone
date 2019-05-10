@@ -81,7 +81,7 @@ function downloadLatestKillLog(verbose, killCallback,
 			       loginCallback, doneCallback) {
     var b = new browser();
     var loginUrl = ('https://id.g-portal.com/login?redirect=' +
-		    'https%3A%2F%2Fwww.g-portal.us%2Fen%2F');
+		    'https%3A%2F%2Fwww.g-portal.com%2Fen%2F');        //change .us to .com to europe servers
     if (verbose) console.log('Downloading latest kill log.');
     if (verbose) console.log('    Trying login.');
     b.browse('login', loginUrl);
@@ -104,6 +104,7 @@ function downloadLatestKillLog(verbose, killCallback,
 	}];
     })
     .after('login');  // browse after browsing with label="login"
+    // Change .us to .com for Europe servers.
     const logsUrl = 'https://www.g-portal.us/en/scum/logs/'+config.gPortalServerId;
     b.browse(logsUrl).after();
     let maxLoginTimestamp;
