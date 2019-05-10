@@ -104,7 +104,8 @@ function downloadLatestKillLog(verbose, killCallback,
 	}];
     })
     .after('login');  // browse after browsing with label="login"
-    const logsUrl = 'https://www.g-portal.com/en/scum/logs/71302';     //change .us to .com to europe servers
+    // Change .us to .com for Europe servers.
+    const logsUrl = 'https://www.g-portal.us/en/scum/logs/'+config.gPortalServerId;
     b.browse(logsUrl).after();
     let maxLoginTimestamp;
     let maxLoginOption;
